@@ -86,7 +86,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
                 )}
               />
             </div>
-            <Button type="submit" className="text-white" disabled={isSubmitting}>
+            <Button type="submit" className="mt-2 text-white" disabled={isSubmitting}>
               {isSubmitting && <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />}
               Sign In 🚀
             </Button>
