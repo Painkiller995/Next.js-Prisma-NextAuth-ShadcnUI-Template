@@ -11,6 +11,7 @@ import { authSchema } from '@/schemas/auth';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import AlertDestructive from '@/components/alert';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormItem, FormField, FormControl, FormMessage } from '@/components/ui/form';
 
@@ -45,6 +46,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
 
   return (
     <div className={cn('grid gap-6', className)} {...props}>
+      <AlertDestructive alertDescription={error} />
       <Form {...form}>
         <form onSubmit={onSubmit}>
           <div className="grid gap-2">
