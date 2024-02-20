@@ -4,7 +4,6 @@ import { z } from 'zod';
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { Icons } from '@/components/icons';
 import { authSchema } from '@/schemas/auth';
@@ -12,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import AlertDestructive from '@/components/alert';
+import { signIn, signOut } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormItem, FormField, FormControl, FormMessage } from '@/components/ui/form';
 
@@ -32,6 +32,10 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
 
   const onSubmit = form.handleSubmit(async (data) => {
     setIsSubmitting(true);
+
+    // Sign out any existing sessions before signing in
+    await signOut();
+
     const signInResult = await signIn('credentials', {
       email: data.email,
       password: data.password,
