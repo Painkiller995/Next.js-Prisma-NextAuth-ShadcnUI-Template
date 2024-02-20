@@ -4,6 +4,7 @@ import { z } from 'zod';
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
+import { paths } from '@/config/paths';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { Icons } from '@/components/icons';
@@ -36,7 +37,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       await signIn('credentials', {
         email: data.email,
         password: data.password,
-        callbackUrl: `${window.location.origin}/home`,
+        callbackUrl: paths.home,
       });
     } catch {
       setIsSubmitting(false);

@@ -1,10 +1,15 @@
 import { compare } from 'bcrypt';
 import prisma from '@@/prisma/client';
 import { User } from '@prisma/client';
+import { paths } from '@/config/paths';
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: paths.login,
+    error: paths.login,
+  },
   session: {
     strategy: 'jwt',
   },
