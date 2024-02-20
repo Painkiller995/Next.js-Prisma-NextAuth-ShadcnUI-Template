@@ -32,9 +32,10 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
   const onSubmit = form.handleSubmit(async (data) => {
     try {
       setIsSubmitting(true);
-      signIn('credentials', { username: data.email, password: data.password }).then(() => {
-        router.push('/home');
-        router.refresh();
+      await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        callbackUrl: `${window.location.origin}/home`,
       });
     } catch {
       setIsSubmitting(false);
