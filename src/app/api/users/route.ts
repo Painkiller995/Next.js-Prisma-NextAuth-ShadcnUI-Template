@@ -1,7 +1,8 @@
+import prisma from '@@/prisma/client';
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@@/prisma/client';
 import { prismaExclude } from '@@/prisma/prisma-exclude';
+
 import { authOptions } from '../auth/[...nextauth]/route';
 
 export async function GET(request: NextRequest) {
