@@ -34,7 +34,9 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     setIsSubmitting(true);
 
     // Sign out any existing sessions before signing in
-    await signOut();
+    await signOut({
+      redirect: false,
+    });
 
     const signInResult = await signIn('credentials', {
       email: data.email,
