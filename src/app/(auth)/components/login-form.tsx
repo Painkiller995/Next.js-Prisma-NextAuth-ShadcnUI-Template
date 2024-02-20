@@ -4,7 +4,6 @@ import { z } from 'zod';
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
-import { paths } from '@/config/paths';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { Icons } from '@/components/icons';
@@ -32,16 +31,18 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
   });
 
   const onSubmit = form.handleSubmit(async (data) => {
-    try {
-      setIsSubmitting(true);
-      await signIn('credentials', {
-        email: data.email,
-        password: data.password,
-        callbackUrl: paths.home,
-      });
-    } catch {
+    setIsSubmitting(true);
+    const signInResult = await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+    if (signInResult?.ok) {
+      router.push('/home');
+      router.refresh();
+    } else {
+      setError('Invalid email or password. Please try again.');
       setIsSubmitting(false);
-      setError('An unexpected error occurred.');
     }
   });
 
