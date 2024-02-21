@@ -1,6 +1,6 @@
 import { hash } from 'bcrypt';
 import prisma from '@@/prisma/client';
-import { authSchema } from '@/schemas/auth';
+import { signupSchema } from '@/schemas/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { prismaExclude } from '@@/prisma/prisma-exclude';
 
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
       .catch(() => NextResponse.json({ error: 'Invalid request format' }, { status: 400 }))) ??
     null;
 
-  const validation = authSchema.safeParse(body);
+  const validation = signupSchema.safeParse(body);
 
   // If not, return error
   if (!validation.success) return NextResponse.json(validation.error.format(), { status: 400 });
