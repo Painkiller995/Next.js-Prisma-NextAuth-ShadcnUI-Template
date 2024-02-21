@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import PageFrame from '@/components/page-frame';
 
-import { ResetPasswordForm } from '../components/reset-pass-form';
+import { ForgotPasswordForm } from '../components/forgot-password-form';
 
-export default function ResetPassword() {
+export default function ForgotPassword() {
   return (
     <PageFrame className="flex flex-col md:flex-row">
       <div className="hidden bg-gradient-to-r from-green-400 to-blue-500 p-4 hover:from-pink-500 hover:to-yellow-500 md:flex md:w-1/2 md:flex-col-reverse">
@@ -20,7 +20,7 @@ export default function ResetPassword() {
             send you a secure link to create a new password and ensure the safety of your account.
           </p>
 
-          <ResetPasswordForm />
+          <ForgotPasswordForm />
 
           <p className="px-8 text-center text-sm text-muted-foreground">
             By clicking continue, you agree to our{' '}

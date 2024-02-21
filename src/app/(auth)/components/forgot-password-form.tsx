@@ -12,23 +12,23 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import AlertDestructive from '@/components/alert';
-import { resetPasswordSchema } from '@/schemas/auth';
+import { forgotPasswordSchema } from '@/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormItem, FormField, FormControl, FormMessage } from '@/components/ui/form';
 
-interface ResetPasswordFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface ForgotPasswordFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
-export function ResetPasswordForm({ className, ...props }: ResetPasswordFormProps) {
+export function ForgotPasswordForm({ className, ...props }: ForgotPasswordFormProps) {
   const router = useRouter();
 
   const [error, setError] = useState<string>('');
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const form = useForm<ResetPasswordFormData>({
-    resolver: zodResolver(resetPasswordSchema),
+  const form = useForm<ForgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordSchema),
   });
 
   const onSubmit = form.handleSubmit(async (data) => {

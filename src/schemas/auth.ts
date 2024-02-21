@@ -23,6 +23,6 @@ export const signupSchema = z
     path: ['confirmPassword'],
   });
 
-export const resetPasswordSchema = z.object({
+export const forgotPasswordSchema = z.object({
   email: z.string().email('Invalid email format.').min(1, 'Email is required.').max(255),
 });
