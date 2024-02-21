@@ -42,7 +42,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
 
       const signInResult = await axios.post('/api/auth/signup', data);
       if (signInResult.status === 201) {
-        router.push('/home');
+        router.push('/login');
         router.refresh();
       }
     } catch (e: AxiosError) {
