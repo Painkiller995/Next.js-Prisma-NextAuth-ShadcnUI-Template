@@ -1,16 +1,17 @@
 'use client';
 
 import { z } from 'zod';
+import axios from 'axios';
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { signOut } from 'next-auth/react';
 import { Icons } from '@/components/icons';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import AlertDestructive from '@/components/alert';
-import { signIn, signOut } from 'next-auth/react';
 import { signupSchemaForm } from '@/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormItem, FormField, FormControl, FormMessage } from '@/components/ui/form';
@@ -38,16 +39,12 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
       redirect: false,
     });
 
-    const signInResult = await signIn('credentials', {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-    });
-    if (signInResult?.ok) {
+    const signInResult = await axios.post('/api/auth/signup', data);
+    if (signInResult.status === 201) {
       router.push('/home');
       router.refresh();
     } else {
-      setError('Invalid email or password. Please try again.');
+      setError('An error occurred while signing up. Please try again.');
       setIsSubmitting(false);
     }
   });
