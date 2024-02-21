@@ -14,7 +14,7 @@ export default function SignUp() {
       </div>
       <div className="mx-auto flex w-full flex-col items-center justify-center space-y-6 p-20 md:w-1/2">
         <div className=" max-w-[600px]">
-          <div className="flex flex-col space-y-2 text-center">
+          <div className="flex flex-col space-y-2 pb-5 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">🌟 Welcome aboard!</h1>
             <p className="text-sm text-muted-foreground">
               Embark on a journey with us by creating your account. 🚀

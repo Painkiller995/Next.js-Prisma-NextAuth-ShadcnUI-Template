@@ -11,16 +11,17 @@ export default function ForgotPassword() {
       </div>
       <div className="mx-auto flex w-full flex-col items-center justify-center space-y-6 p-20 md:w-1/2">
         <div className=" max-w-[600px]">
-          <div className="flex flex-col space-y-2 text-center">
+          <div className="flex flex-col space-y-2 pb-5 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
               🔓 Let&apos;s Reset Your Password
             </h1>
 
-            <p className="pb-2 text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               To initiate the password reset process, please provide your email address. We&apos;ll
               send you a secure link to create a new password and ensure the safety of your account.
             </p>
           </div>
+
           <ForgotPasswordForm />
 
           <p className="px-8 text-center text-sm text-muted-foreground">
