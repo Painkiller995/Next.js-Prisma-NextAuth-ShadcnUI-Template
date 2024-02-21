@@ -10,15 +10,15 @@ import { signOut } from 'next-auth/react';
 import { Icons } from '@/components/icons';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
+import { signupSchema } from '@/schemas/auth';
 import { Button } from '@/components/ui/button';
 import AlertDestructive from '@/components/alert';
-import { signupSchemaForm } from '@/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormItem, FormField, FormControl, FormMessage } from '@/components/ui/form';
 
 interface SignUpFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-type SignUpFormData = z.infer<typeof signupSchemaForm>;
+type SignUpFormData = z.infer<typeof signupSchema>;
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const router = useRouter();
@@ -28,23 +28,29 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<SignUpFormData>({
-    resolver: zodResolver(signupSchemaForm),
+    resolver: zodResolver(signupSchema),
   });
 
   const onSubmit = form.handleSubmit(async (data) => {
-    setIsSubmitting(true);
+    try {
+      setIsSubmitting(true);
 
-    // Sign out any existing sessions before signing in
-    await signOut({
-      redirect: false,
-    });
+      // Sign out any existing sessions before signing in
+      await signOut({
+        redirect: false,
+      });
 
-    const signInResult = await axios.post('/api/auth/signup', data);
-    if (signInResult.status === 201) {
-      router.push('/home');
-      router.refresh();
-    } else {
-      setError('An error occurred while signing up. Please try again.');
+      const signInResult = await axios.post('/api/auth/signup', data);
+      if (signInResult.status === 201) {
+        router.push('/home');
+        router.refresh();
+      }
+    } catch (e: AxiosError) {
+      if (e.response?.data?.error) {
+        setError(e.response.data.error);
+      } else {
+        setError('An error occurred while signing up. Please try again.');
+      }
       setIsSubmitting(false);
     }
   });
