@@ -12,12 +12,14 @@ export default function SignUp() {
           progress and pave the way for success! 🔓🌟
         </p>
       </div>
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 p-20 md:w-1/2">
-        <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">🌟 Welcome aboard!</h1>
-          <p className="text-sm text-muted-foreground">
-            Embark on a journey with us by creating your account. 🚀
-          </p>
+      <div className="mx-auto flex w-full flex-col items-center justify-center space-y-6 p-20 md:w-1/2">
+        <div className=" max-w-[600px]">
+          <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">🌟 Welcome aboard!</h1>
+            <p className="text-sm text-muted-foreground">
+              Embark on a journey with us by creating your account. 🚀
+            </p>
+          </div>
           <SignUpForm />
           <p className="px-8 text-center text-sm text-muted-foreground">
             By clicking continue, you agree to our{' '}

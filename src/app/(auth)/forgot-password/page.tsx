@@ -9,17 +9,18 @@ export default function ForgotPassword() {
       <div className="hidden bg-gradient-to-r from-green-400 to-blue-500 p-4 hover:from-pink-500 hover:to-yellow-500 md:flex md:w-1/2 md:flex-col-reverse">
         <p>Ready to reset your password and unlock a world of opportunities? 🔓🌟</p>
       </div>
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 p-20 md:w-1/2">
-        <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            🔓 Let&apos;s Reset Your Password
-          </h1>
+      <div className="mx-auto flex w-full flex-col items-center justify-center space-y-6 p-20 md:w-1/2">
+        <div className=" max-w-[600px]">
+          <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">
+              🔓 Let&apos;s Reset Your Password
+            </h1>
 
-          <p className="pb-2 text-sm text-muted-foreground">
-            To initiate the password reset process, please provide your email address. We&apos;ll
-            send you a secure link to create a new password and ensure the safety of your account.
-          </p>
-
+            <p className="pb-2 text-sm text-muted-foreground">
+              To initiate the password reset process, please provide your email address. We&apos;ll
+              send you a secure link to create a new password and ensure the safety of your account.
+            </p>
+          </div>
           <ForgotPasswordForm />
 
           <p className="px-8 text-center text-sm text-muted-foreground">
