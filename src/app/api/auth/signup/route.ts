@@ -25,7 +25,12 @@ export async function POST(request: NextRequest) {
 
   // Create new User
   await prisma.user.create({
-    data: { name: body.name, email: body.email, password: hashedPassword },
+    data: {
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      password: hashedPassword,
+    },
   });
 
   // Get new user without sensitive data
