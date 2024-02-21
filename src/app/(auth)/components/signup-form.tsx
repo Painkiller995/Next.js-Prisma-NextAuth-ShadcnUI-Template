@@ -8,16 +8,16 @@ import { useForm } from 'react-hook-form';
 import { Icons } from '@/components/icons';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
-import { signupSchema } from '@/schemas/auth';
 import { Button } from '@/components/ui/button';
 import AlertDestructive from '@/components/alert';
 import { signIn, signOut } from 'next-auth/react';
+import { signupSchemaForm } from '@/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormItem, FormField, FormControl, FormMessage } from '@/components/ui/form';
 
 interface SignUpFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-type SignUpFormData = z.infer<typeof signupSchema>;
+type SignUpFormData = z.infer<typeof signupSchemaForm>;
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const router = useRouter();
@@ -27,7 +27,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<SignUpFormData>({
-    resolver: zodResolver(signupSchema),
+    resolver: zodResolver(signupSchemaForm),
   });
 
   const onSubmit = form.handleSubmit(async (data) => {
@@ -89,20 +89,6 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
             <div className="grid gap-1">
               <FormField
                 control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input placeholder="Last Name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid gap-1">
-              <FormField
-                control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
@@ -135,7 +121,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Password" {...field} />
+                      <Input type="password" placeholder="Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -149,7 +135,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Confirm Password" {...field} />
+                      <Input type="password" placeholder="Confirm Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
