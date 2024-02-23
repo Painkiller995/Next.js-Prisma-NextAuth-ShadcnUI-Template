@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { motion, useAnimation } from 'framer-motion';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { sidebarData, sidebarFooterData } from '@/config/sidebar';
 import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from 'react-icons/bs';
 
@@ -20,15 +20,19 @@ const Sidebar = ({ className }: Props) => {
       width: '250px',
       transition: { duration: 0.001 },
     });
+
     controlText.start({
       opacity: 1,
       display: 'block',
       transition: { delay: 0.3 },
     });
+
     controlTitleText.start({
       opacity: 1,
+      display: 'block',
       transition: { delay: 0.3 },
     });
+
     setActive(true);
   }, [controlText, controlTitleText, controls]);
 
@@ -45,17 +49,15 @@ const Sidebar = ({ className }: Props) => {
 
     controlTitleText.start({
       opacity: 0,
+      display: 'none',
     });
 
     setActive(false);
   };
 
-  useEffect(() => {
-    showMore();
-  }, [showMore]);
-
   return (
     <motion.div
+      initial={{ width: '55px' }}
       animate={controls}
       className={cn(
         'animate group relative flex max-w-[250px] flex-col content-between backdrop-blur duration-300 supports-[backdrop-filter]:bg-background/60',
@@ -81,7 +83,7 @@ const Sidebar = ({ className }: Props) => {
           <div key={index} className="my-2">
             <motion.p
               animate={controlTitleText}
-              className="mb-2 ml-4 text-sm font-bold text-gray-500"
+              className="mb-2 ml-4 hidden text-sm font-bold text-gray-500 opacity-0"
             >
               {group.name}
             </motion.p>
@@ -89,7 +91,10 @@ const Sidebar = ({ className }: Props) => {
             {group.items.map((item, index2) => (
               <div key={index2} className="flex cursor-pointer px-4 py-1">
                 <item.icon className="text-lg text-gray-500" />
-                <motion.p animate={controlText} className="ml-4 text-sm font-bold text-gray-400">
+                <motion.p
+                  animate={controlText}
+                  className="ml-4 hidden text-sm font-bold text-gray-400 opacity-0"
+                >
                   {item.title}
                 </motion.p>
               </div>
@@ -103,7 +108,7 @@ const Sidebar = ({ className }: Props) => {
           <div key={index} className="my-2">
             <motion.p
               animate={controlTitleText}
-              className="mb-2 ml-4 text-sm font-bold text-gray-500"
+              className="mb-2 ml-4 hidden text-sm font-bold text-gray-500 opacity-0"
             >
               {group.name}
             </motion.p>
@@ -111,7 +116,10 @@ const Sidebar = ({ className }: Props) => {
             {group.items.map((item, index2) => (
               <div key={index2} className="flex cursor-pointer px-4 py-1">
                 <item.icon className="text-lg text-gray-500" />
-                <motion.p animate={controlText} className="ml-4 text-sm font-bold text-gray-400">
+                <motion.p
+                  animate={controlText}
+                  className="ml-4 hidden text-sm font-bold text-gray-400 opacity-0"
+                >
                   {item.title}
                 </motion.p>
               </div>
