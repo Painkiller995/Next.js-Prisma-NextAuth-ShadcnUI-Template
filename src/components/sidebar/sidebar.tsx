@@ -2,8 +2,8 @@
 
 import { cn } from '@/lib/utils';
 import { motion, useAnimation } from 'framer-motion';
-import React, { useState, useCallback } from 'react';
 import { sidebarData, sidebarFooterData } from '@/config/sidebar';
+import React, { useState, useCallback, useLayoutEffect } from 'react';
 import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 interface Props {
@@ -36,7 +36,7 @@ const Sidebar = ({ className }: Props) => {
     setActive(true);
   }, [controlText, controlTitleText, controls]);
 
-  const showLess = () => {
+  const showLess = useCallback(() => {
     controls.start({
       width: '55px',
       transition: { duration: 0.001 },
@@ -53,7 +53,21 @@ const Sidebar = ({ className }: Props) => {
     });
 
     setActive(false);
-  };
+  }, [controlText, controlTitleText, controls]);
+
+  // Hide sidebar on mobile
+  const checkSize = useCallback(() => {
+    if (window.innerWidth < 768) {
+      showLess();
+      setActive(false);
+    }
+  }, [showLess]);
+
+  useLayoutEffect(() => {
+    window.addEventListener('resize', checkSize);
+    checkSize();
+    return () => window.removeEventListener('resize', checkSize);
+  }, [checkSize]);
 
   return (
     <motion.div
@@ -63,20 +77,21 @@ const Sidebar = ({ className }: Props) => {
         className
       )}
     >
-      {active && (
-        <BsFillArrowLeftSquareFill
-          onClick={showLess}
-          className="absolute -right-4 top-10 hidden cursor-pointer text-2xl text-black group-hover:block dark:text-white"
-        />
-      )}
+      <div className="absolute -right-4 top-4 hidden md:block">
+        {active && (
+          <BsFillArrowLeftSquareFill
+            onClick={showLess}
+            className="top-10 hidden cursor-pointer text-2xl text-black group-hover:block dark:text-white"
+          />
+        )}
 
-      {!active && (
-        <BsFillArrowRightSquareFill
-          onClick={showMore}
-          className="absolute -right-4 top-10 cursor-pointer text-2xl text-black dark:text-white"
-        />
-      )}
-
+        {!active && (
+          <BsFillArrowRightSquareFill
+            onClick={showMore}
+            className="top-10 cursor-pointer text-2xl text-black dark:text-white"
+          />
+        )}
+      </div>
       <div className="grow">
         {sidebarData.map((group, index) => (
           <div key={index} className="my-2">
