@@ -1,23 +1,126 @@
-import React from 'react';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
+'use client';
 
-import { Button } from '../ui/button';
+import { cn } from '@/lib/utils';
+import { motion, useAnimation } from 'framer-motion';
+import React, { useState, useEffect, useCallback } from 'react';
+import { sidebarData, sidebarFooterData } from '@/config/sidebar';
+import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 interface Props {
   className?: string;
 }
-const Sidebar = ({ className }: Props) => (
-  <div className={cn('p-5 backdrop-blur supports-[backdrop-filter]:bg-background/60', className)}>
-    <div className="flex flex-col-reverse space-y-5 p-5">
-      <Link className="mt-5" href="https://github.com/Painkiller995">
-        <Button>GitHub</Button>
-      </Link>
-      <p className="mb-5 sm:mb-0 sm:text-sm">
-        Need Help? You can reach me to get assistance with your ongoing tasks.
-      </p>
-    </div>
-  </div>
-);
+const Sidebar = ({ className }: Props) => {
+  const [active, setActive] = useState(false);
+  const controls = useAnimation();
+  const controlText = useAnimation();
+  const controlTitleText = useAnimation();
+
+  const showMore = useCallback(() => {
+    controls.start({
+      width: '250px',
+      transition: { duration: 0.001 },
+    });
+    controlText.start({
+      opacity: 1,
+      display: 'block',
+      transition: { delay: 0.3 },
+    });
+    controlTitleText.start({
+      opacity: 1,
+      transition: { delay: 0.3 },
+    });
+    setActive(true);
+  }, [controlText, controlTitleText, controls]);
+
+  const showLess = () => {
+    controls.start({
+      width: '55px',
+      transition: { duration: 0.001 },
+    });
+
+    controlText.start({
+      opacity: 0,
+      display: 'none',
+    });
+
+    controlTitleText.start({
+      opacity: 0,
+    });
+
+    setActive(false);
+  };
+
+  useEffect(() => {
+    showMore();
+  }, [showMore]);
+
+  return (
+    <motion.div
+      animate={controls}
+      className={cn(
+        'animate group relative flex max-w-[250px] flex-col content-between backdrop-blur duration-300 supports-[backdrop-filter]:bg-background/60',
+        className
+      )}
+    >
+      {active && (
+        <BsFillArrowLeftSquareFill
+          onClick={showLess}
+          className="absolute -right-4 top-10 hidden cursor-pointer text-2xl text-black group-hover:block dark:text-white"
+        />
+      )}
+
+      {!active && (
+        <BsFillArrowRightSquareFill
+          onClick={showMore}
+          className="absolute -right-4 top-10 cursor-pointer text-2xl text-black dark:text-white"
+        />
+      )}
+
+      <div className="grow">
+        {sidebarData.map((group, index) => (
+          <div key={index} className="my-2">
+            <motion.p
+              animate={controlTitleText}
+              className="mb-2 ml-4 text-sm font-bold text-gray-500"
+            >
+              {group.name}
+            </motion.p>
+
+            {group.items.map((item, index2) => (
+              <div key={index2} className="flex cursor-pointer px-4 py-1">
+                <item.icon className="text-lg text-gray-500" />
+                <motion.p animate={controlText} className="ml-4 text-sm font-bold text-gray-400">
+                  {item.title}
+                </motion.p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <div>
+        {sidebarFooterData.map((group, index) => (
+          <div key={index} className="my-2">
+            <motion.p
+              animate={controlTitleText}
+              className="mb-2 ml-4 text-sm font-bold text-gray-500"
+            >
+              {group.name}
+            </motion.p>
+
+            {group.items.map((item, index2) => (
+              <div key={index2} className="flex cursor-pointer px-4 py-1">
+                <item.icon className="text-lg text-gray-500" />
+                <motion.p animate={controlText} className="ml-4 text-sm font-bold text-gray-400">
+                  {item.title}
+                </motion.p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
 
 export default Sidebar;
