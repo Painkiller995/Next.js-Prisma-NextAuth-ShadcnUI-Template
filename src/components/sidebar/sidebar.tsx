@@ -57,10 +57,9 @@ const Sidebar = ({ className }: Props) => {
 
   return (
     <motion.div
-      initial={{ width: '55px' }}
       animate={controls}
       className={cn(
-        'animate group relative flex max-w-[250px] flex-col content-between backdrop-blur duration-300 supports-[backdrop-filter]:bg-background/60',
+        'animate group relative flex w-[55px] max-w-[250px] flex-col content-between backdrop-blur duration-300 supports-[backdrop-filter]:bg-background/60',
         className
       )}
     >
