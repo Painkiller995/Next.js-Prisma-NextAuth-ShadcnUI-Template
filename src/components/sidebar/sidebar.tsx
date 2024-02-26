@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { motion, useAnimation } from 'framer-motion';
 import { sidebarData, sidebarFooterData } from '@/config/sidebar';
@@ -103,15 +104,15 @@ const Sidebar = ({ className }: Props) => {
             </motion.p>
 
             {group.items.map((item, index2) => (
-              <div key={index2} className="flex cursor-pointer px-4 py-1">
-                <item.icon className="text-lg text-gray-500" />
+              <Link href={item.link} key={index2} className="flex cursor-pointer px-4 py-1">
+                <item.icon className="text-lg text-gray-500 hover:text-primary" />
                 <motion.p
                   animate={controlText}
-                  className="ml-4 hidden text-sm font-bold text-gray-400 opacity-0"
+                  className="ml-4 hidden text-sm font-bold text-gray-400 opacity-0 hover:text-primary"
                 >
                   {item.title}
                 </motion.p>
-              </div>
+              </Link>
             ))}
           </div>
         ))}
@@ -128,15 +129,15 @@ const Sidebar = ({ className }: Props) => {
             </motion.p>
 
             {group.items.map((item, index2) => (
-              <div key={index2} className="flex cursor-pointer px-4 py-1">
-                <item.icon className="text-lg text-gray-500" />
+              <Link href={item.link} key={index2} className="flex cursor-pointer px-4 py-1">
+                <item.icon className="text-lg text-gray-500 hover:text-primary" />
                 <motion.p
                   animate={controlText}
-                  className="ml-4 hidden text-sm font-bold text-gray-400 opacity-0"
+                  className="ml-4 hidden text-sm font-bold text-gray-400 opacity-0 hover:text-primary"
                 >
                   {item.title}
                 </motion.p>
-              </div>
+              </Link>
             ))}
           </div>
         ))}
