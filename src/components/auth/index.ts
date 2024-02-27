@@ -1,1 +1,1 @@
-export { LoginButton, LogoutButton } from './auth';
+export { AuthStatus, LoginButton, LogoutButton } from './auth';
